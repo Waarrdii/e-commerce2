@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 use Inertia\Inertia;
 
 //user routes
@@ -29,7 +30,11 @@ Route::middleware('auth')->group(function () {
 //end
 
 //admin routes
+Route::group(['prefix' => 'admin'], function () {)
 
+Route::middleware([ 'auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index']);
+});
 //end
 
 require __DIR__.'/auth.php';
