@@ -30,7 +30,12 @@ Route::middleware('auth')->group(function () {
 //end
 
 //admin routes
-Route::group(['prefix' => 'admin'], function () {)
+Route::group(['prefix' => 'admin'], function (){
+    Route::get('login', [AdminController::class, 'ShowLoginForm'])->name('admin.login');
+    Route::post('login', [AdminController::class, 'login'])->name('admin.login.post');
+    Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
+});
+
 
 Route::middleware([ 'auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index']);
